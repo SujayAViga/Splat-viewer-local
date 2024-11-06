@@ -28,8 +28,24 @@ function UploadFiles() {
     navigate('/viewer');
   }
 
+  const uploaderStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '10px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  }
+
+  const fileUploaderStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  }
+
   return (
-    <div>
+    <div style={uploaderStyle}>
+      <div style={fileUploaderStyle}>
       <div>
         <div>Upload Splat</div>
         <input type="file" onChange={handleSplatFileChange} accept=".splat"/>
@@ -38,7 +54,8 @@ function UploadFiles() {
         <div>Upload Colmap</div>
         <input type="file" onChange={handleColmapFileChange} accept=".json"/>
       </div>
-      <button onClick={handleUpload}>Upload</button>
+      </div>
+        <button onClick={handleUpload}>Upload</button>
     </div>
   );
 }
