@@ -168,7 +168,7 @@ function Viewer() {
   return (
     <Canvas>
       {!boundaryData && (
-        <FlyControls rollSpeed={1} speed={10} />
+        <FlyControls rollSpeed={1} speed={10} dragToLook/>
       )}
 
       {boundaryData &&
