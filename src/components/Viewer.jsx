@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { FlyControls, Splat } from "@react-three/drei";
 import { GlobalVariablesContext } from "../../GlobalVariables";
@@ -14,7 +14,7 @@ function Viewer() {
   );
   const [screenHeight, setScreenHeight] = useState("100vh");
   const navigate = useNavigate();
-
+  const [counter, setCounter] = useState(0)
   
   const [cameraFocalLength, setCameraFocalLength] = useState(110); // Set your camera's initial focal length
   const [initialPinchDistance, setInitialPinchDistance] = useState(null);
@@ -350,6 +350,7 @@ function Viewer() {
 
   // Function to handle touch end
   const handleTouchEnd = () => {
+    
     setIsTouching(false);
     setInitialPinchDistance(null);
     setIsTouching(false);
@@ -358,6 +359,7 @@ function Viewer() {
   const clickTimeout = useRef(null);
 
   const handleClick = () => {
+    
     // Clear any existing timeout to prevent the single click action
     if (clickTimeout.current) {
       clearTimeout(clickTimeout.current);
@@ -375,6 +377,7 @@ function Viewer() {
   };
 
   const handleDoubleClick = () => {
+    // setCounter(counter+1)
     // Clear the timeout to prevent the single click handler from being called
     if (clickTimeout.current) {
       clearTimeout(clickTimeout.current);
@@ -387,6 +390,18 @@ function Viewer() {
     setTapType(2.5);
     setMoveCamera(true);
   };
+
+  const blobUrl = useMemo(() => {
+    return splatFile ? URL.createObjectURL(splatFile) : null;
+  }, [splatFile]);
+
+  useEffect(() => {
+    return () => {
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [blobUrl]);
 
   return (
     <div id='canvas-full' className='main-container'>
@@ -438,7 +453,7 @@ function Viewer() {
                 ? [inclination.x, inclination.y, -inclination.z]
                 : [0, 0, 0]
             }
-            src={URL.createObjectURL(splatFile)}
+            src={blobUrl}
           />
         )}
 
