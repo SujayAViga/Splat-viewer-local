@@ -3,18 +3,19 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  margin: 10;
+  overflow: hidden;
+  /* margin: 10; */
   padding: 0;
 }
 
 .joystick-container{
+  /* background-color: red; */
   position: absolute;
   display: flex;
   line-height: 0.8em;
   justify-content: space-between;
-  padding: 0 10% 0 10%; 
-  width: 100%;
-  /* height: 100%; */
+  padding: 10%; 
+  width: 100vh;
   bottom: 5%;
 }
 
@@ -27,4 +28,6 @@ body,
   position: relative;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
